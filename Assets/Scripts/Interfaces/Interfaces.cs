@@ -10,6 +10,11 @@ namespace Kevin
         {
         
         }
+
+        public interface IBall
+        {
+            
+        }
     }
 }
 

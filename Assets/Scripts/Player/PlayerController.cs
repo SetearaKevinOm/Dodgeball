@@ -16,7 +16,7 @@ namespace Kevin
         public float playerSpeed;
         public void FixedUpdate()
         {
-            MovePlayer();
+            MovePlayerClientRpc();
         }
 
         public void OnEnable()
@@ -35,6 +35,7 @@ namespace Kevin
             _move.performed -= MovePerformed;
             _move.canceled -= MoveCancelled;
         }
+        
         private void MovePerformed(InputAction.CallbackContext context)
         {
             _moveInput = context.ReadValue<Vector2>();
@@ -45,12 +46,14 @@ namespace Kevin
             _moveInput = Vector2.zero;
         }
         
-        private void MovePlayer()
+        [ClientRpc]
+        private void MovePlayerClientRpc()
         {
             Vector3 targetDirection = new Vector3(_moveInput.x * playerSpeed, 0, _moveInput.y * playerSpeed);
+            _rb.AddForce(targetDirection,ForceMode.Acceleration);
+            
             /*Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime);*/
-            _rb.AddForce(targetDirection,ForceMode.Acceleration);
         }
         
     }

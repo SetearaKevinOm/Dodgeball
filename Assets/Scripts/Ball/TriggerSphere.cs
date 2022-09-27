@@ -20,6 +20,7 @@ namespace Kevin
             if (otherPlayer != null)
             {
                 Debug.Log("Hit Player!");
+                other.gameObject.SetActive(false);
             }
             
             if (other.GameObject().layer == 3)
