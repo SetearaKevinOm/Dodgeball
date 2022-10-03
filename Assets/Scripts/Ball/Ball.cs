@@ -10,22 +10,42 @@ namespace Kevin
 {
     public class Ball : NetworkBehaviour
     {
-        public float speed;
+        public int speed;
+        public int maxSpeed;
+        
         public Rigidbody rb;
-        public float random;
-        
-        public void Start()
+        public float randomX;
+        public float randomZ;
+
+        public bool gameStarted = false;
+        /*public void Start()
         {
-            rb = GetComponent<Rigidbody>();
-            random = Random.Range(0f, 10f);
             RollServerRpc();
-        }
-        
-        [ServerRpc(RequireOwnership = false)]
-        private void RollServerRpc()
+        }*/
+
+        /*public void OnEnable()
         {
-            //rb.AddForce(new Vector3(random, 0,random).normalized* speed,ForceMode.Impulse);
-            rb.velocity = new Vector3(random, 0,random).normalized* speed;
+            RollServerRpc();
+        }*/
+
+        public void FixedUpdate()
+        {
+            if (gameStarted)
+            {
+                RollServerRpc();
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void RollServerRpc()
+        {
+           
+            rb = GetComponent<Rigidbody>();
+            randomX = Random.Range(-10f, 10f);
+            randomZ = Random.Range(-10f, 10f);
+            //rb.AddForce(Vector3.forward,ForceMode.Impulse);
+            rb.velocity = new Vector3(randomX, 0,randomZ).normalized* speed;
+            gameStarted = false; 
         }
         
     }

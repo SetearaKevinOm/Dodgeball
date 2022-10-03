@@ -20,12 +20,17 @@ namespace Kevin
             if (otherPlayer != null)
             {
                 Debug.Log("Hit Player!");
-                other.gameObject.SetActive(false);
+                //other.gameObject.SetActive(false);
             }
             
             if (other.GameObject().layer == 3)
             {
                 Debug.Log("Hit Wall!");
+                if (ball.speed != ball.maxSpeed)
+                {
+                    ball.speed ++;
+                }
+                ball.gameStarted = true;
             }
             
         }

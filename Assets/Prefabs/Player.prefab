@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f334219b482841843b78a4c4b1ff8441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 50
+  playerSpeed: 100
 --- !u!114 &8218197972553475935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f7c8b2627fefed4991b9801ba7357ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 8218197972553475928}
 --- !u!54 &8218197972553475934
 Rigidbody:
   m_ObjectHideFlags: 0

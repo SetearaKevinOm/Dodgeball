@@ -190,8 +190,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  maxSpeed: 0
   rb: {fileID: 0}
-  random: 0
+  randomX: 0
+  randomZ: 0
+  gameStarted: 0
 --- !u!114 &1715197832
 MonoBehaviour:
   m_ObjectHideFlags: 0
