@@ -7,15 +7,23 @@ using UnityEngine;
 public class BallSpawnerManager : NetworkBehaviour
 {
     public float timer;
-    public int amountOfBalls;
+    public int amountOfBalls = 0;
     public int maxAmountOfBalls;
 
     public GameObject ballPrefab;
-    
-    public IEnumerator Start()
+
+    public void OnAwake()
     {
-        yield return new WaitForSeconds(0.5f);
-        SpawnABallServerRpc();
+        StartCoroutine(GameStarted());
+    }
+
+    private IEnumerator GameStarted()
+    {
+        if (IsServer)
+        {
+            yield return new WaitForSeconds(2f);
+            SpawnABallServerRpc();
+        }
     }
 
     [ServerRpc]
@@ -25,7 +33,7 @@ public class BallSpawnerManager : NetworkBehaviour
         {
             Instantiate(ballPrefab, transform.position, Quaternion.identity);
             amountOfBalls++;
-            StartCoroutine(SpawnBall());
+            StartCoroutine(SpawnCooldown());
         }
     }
 
@@ -36,11 +44,11 @@ public class BallSpawnerManager : NetworkBehaviour
         amountOfBalls++;
         if (amountOfBalls < maxAmountOfBalls)
         {
-            StartCoroutine(SpawnBall());
+            StartCoroutine(SpawnCooldown());
         }
     }
     
-    private IEnumerator SpawnBall()
+    private IEnumerator SpawnCooldown()
     {
         yield return new WaitForSeconds(timer);
         SpawnAnotherBallServerRpc();

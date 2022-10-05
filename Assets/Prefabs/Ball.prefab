@@ -194,7 +194,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   randomX: 0
   randomZ: 0
-  gameStarted: 0
+  gameStarted: 1
 --- !u!114 &1715197832
 MonoBehaviour:
   m_ObjectHideFlags: 0

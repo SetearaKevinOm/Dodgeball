@@ -30,7 +30,7 @@ namespace Kevin
 
         public void FixedUpdate()
         {
-            if (gameStarted)
+            if (gameStarted && IsServer)
             {
                 RollServerRpc();
             }
