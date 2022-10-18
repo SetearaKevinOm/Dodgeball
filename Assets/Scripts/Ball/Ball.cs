@@ -17,7 +17,9 @@ namespace Kevin
         public float randomX;
         public float randomZ;
 
-        public bool gameStarted = false;
+        public Vector3 currentVelocity;
+        
+        public bool gameStarted;
         /*public void Start()
         {
             RollServerRpc();
@@ -27,27 +29,49 @@ namespace Kevin
         {
             RollServerRpc();
         }*/
-
-        public void FixedUpdate()
+        public void OnEnable()
         {
-            if (gameStarted && IsServer)
+            if (gameStarted)
             {
-                RollServerRpc();
+                Roll();
             }
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        public void RollServerRpc()
+        //[ServerRpc (RequireOwnership = false)]
+        public void Roll()
         {
-           
+            //if (!IsServer) return;
             rb = GetComponent<Rigidbody>();
             randomX = Random.Range(-10f, 10f);
             randomZ = Random.Range(-10f, 10f);
-            //rb.AddForce(Vector3.forward,ForceMode.Impulse);
+            //rb.AddForce(new Vector3(randomX, 0,randomZ).normalized* speed,ForceMode.Impulse);
             rb.velocity = new Vector3(randomX, 0,randomZ).normalized* speed;
             gameStarted = false; 
         }
+
+        public void Update()
+        {
+            if (IsServer)
+            {
+                currentVelocity = rb.velocity;
+                StartCoroutine(UpdateClientVelocity());
+            }
+        }
+
+        private IEnumerator UpdateClientVelocity()
+        {
+            yield return new WaitForSeconds(0.5f);
+            UpdateVelocityClientRpc();
+        }
         
+        [ClientRpc]
+        private void UpdateVelocityClientRpc()
+        {
+            if (IsClient)
+            {
+                rb.velocity = currentVelocity;
+            }
+        }
     }
 }
 

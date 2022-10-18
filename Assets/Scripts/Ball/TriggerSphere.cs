@@ -33,7 +33,7 @@ namespace Kevin
                     {
                         ball.speed ++;
                     }
-                    //ball.gameStarted = true;
+                    ball.gameStarted = true;
                 }
             }
         }
