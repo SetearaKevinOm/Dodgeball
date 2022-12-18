@@ -11,19 +11,18 @@ public class BallSpawnerManager : NetworkBehaviour
     public int maxAmountOfBalls;
 
     public GameObject ballPrefab;
-
-    //Network Manager
-    private NetworkManager _networkManager; 
-    public void Awake()
+    
+    public void OnEnable()
     {
-        _networkManager = NetworkManager.Singleton;
-        _networkManager.OnServerStarted += GameStarted;
+        //SpawnABall();
+        //GameManager.singleton.OnGameStart += GameStarted;
         //StartCoroutine(GameStarted());
+        GameStarted();
     }
 
     private void GameStarted()
     {
-        if (IsServer)
+        if (IsServer || IsHost)
         {
             SpawnABall();
         }
@@ -32,10 +31,11 @@ public class BallSpawnerManager : NetworkBehaviour
     
     private void SpawnABall()
     {
-        if (IsServer && amountOfBalls < maxAmountOfBalls)
+        if (IsServer || IsHost && amountOfBalls < maxAmountOfBalls)
         {
-            GameObject go = Instantiate(ballPrefab, transform.position, Quaternion.identity);
-            go.GetComponent<NetworkObject>().Spawn();
+            GameManager.singleton.NetworkInstantiate(ballPrefab, transform.position, Quaternion.identity);
+            //GameObject go = Instantiate(ballPrefab, transform.position, Quaternion.identity);
+            //go.GetComponent<NetworkObject>().Spawn();
             amountOfBalls++;
             StartCoroutine(SpawnCooldown());
         }

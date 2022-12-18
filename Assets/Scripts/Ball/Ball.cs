@@ -44,8 +44,9 @@ namespace Kevin
             rb = GetComponent<Rigidbody>();
             randomX = Random.Range(-10f, 10f);
             randomZ = Random.Range(-10f, 10f);
-            //rb.AddForce(new Vector3(randomX, 0,randomZ).normalized* speed,ForceMode.Impulse);
-            rb.velocity = new Vector3(randomX, 0,randomZ).normalized* speed;
+            rb.AddForce(new Vector3(randomX, 0,randomZ).normalized* speed,ForceMode.Impulse);
+            //rb.velocity = new Vector3(10, 0,0).normalized* speed;
+            //rb.velocity = new Vector3(GameManager.singleton.cannonNozzles[GameManager.singleton.currentNozzleIndex].transform.localEulerAngles.x, 0, 0).normalized * speed;
             gameStarted = false; 
         }
 

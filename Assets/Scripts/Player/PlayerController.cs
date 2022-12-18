@@ -10,6 +10,9 @@ namespace Kevin
 {
     public class PlayerController : NetworkBehaviour
     {
+        public GameObject player;
+        public Transform playerTransform;
+        
         private PlayerControls _playerControls;
         private InputAction _move;
         private Vector2 _moveInput;
@@ -27,7 +30,7 @@ namespace Kevin
         {
             _rb = GetComponent<Rigidbody>();
             yield return new WaitForSeconds(0.5f);
-            if (IsLocalPlayer)
+            if (IsOwner)
             {
                 _playerControls = new();
                 _move = _playerControls.Player.Move;
@@ -39,7 +42,7 @@ namespace Kevin
 
         public void OnDisable()
         {
-            if (IsLocalPlayer)
+            if (IsOwner)
             {
                 _move.Disable();
                 _move.performed -= MovePerformed;

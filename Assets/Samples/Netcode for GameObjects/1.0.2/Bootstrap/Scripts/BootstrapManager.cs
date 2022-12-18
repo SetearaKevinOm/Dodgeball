@@ -8,7 +8,7 @@ namespace Unity.Netcode.Samples
     /// </summary>
     public class BootstrapManager : MonoBehaviour
     {
-        private void OnGUI()
+        /*private void OnGUI()
         {
             GUILayout.BeginArea(new Rect(10, 10, 300, 300));
 
@@ -53,6 +53,6 @@ namespace Unity.Netcode.Samples
             }
 
             GUILayout.EndArea();
-        }
+        }*/
     }
 }

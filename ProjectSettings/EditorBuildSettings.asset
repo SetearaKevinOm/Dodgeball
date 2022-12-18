@@ -11,4 +11,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MainScenes/NetworkManagerScene.unity
     guid: 3c9fed4944a572c4b98dc5ead99fd2c1
+  - enabled: 1
+    path: Assets/MainScenes/MainMenuScene.unity
+    guid: 15e09b66a20dba143896c49d315afba4
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/MainScenes/IPScene.unity
+    guid: b4b43ed3205956f4385e743594533023
+  - enabled: 1
+    path: Assets/MainScenes/LobbyScene.unity
+    guid: 7ac99b48dc3ed8e43a611627622bb79d
   m_configObjects: {}
