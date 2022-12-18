@@ -7,6 +7,7 @@ using TMPro;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : NetworkBehaviour
 {
@@ -22,7 +23,9 @@ public class GameManager : NetworkBehaviour
     public int amountOfBalls = 0;
     public int maxAmountOfBalls;
     public int currentNozzleIndex;
-    
+    public int playersInGame;
+    public AudioSource cannonSound;
+    public AudioSource wallSound;
     public GameObject ballPrefab;
 
     public List<GameObject> cannonNozzles;
@@ -67,6 +70,7 @@ public class GameManager : NetworkBehaviour
 		    {
 			    currentNozzleIndex = UnityEngine.Random.Range(0, cannonNozzles.Count);
 			    NetworkInstantiate(ballPrefab, cannonNozzles[currentNozzleIndex].transform.position, Quaternion.identity);
+			    cannonSound.Play();
 			    //GameObject go = Instantiate(ballPrefab, transform.position, Quaternion.identity);
 			    //go.GetComponent<NetworkObject>().Spawn();
 			    amountOfBalls++;
@@ -95,11 +99,17 @@ public class GameManager : NetworkBehaviour
 		    clientEntity.GetComponent<ClientEntity>().ControlledPlayer = player;
 		    player.GetComponent<Player>().SetName(clientEntity.GetComponent<ClientInfo>().ClientName.Value.ToString());
 	    }
+
+	    playersInGame = NetworkManager.Singleton.ConnectedClients.Count; 
     }
 
     public void GameEnd()
     {
-	    
+	    if (playersInGame == 0)
+	    {
+		    Debug.Log("No more players! The End!");
+		    SceneManager.LoadScene("EndGameScene", LoadSceneMode.Single);
+	    }
     }
     
     public GameObject NetworkInstantiate(GameObject prefab, Vector3 position, Quaternion rotation)

@@ -24,10 +24,15 @@ namespace Kevin
                 {
                     Debug.Log("Hit Player!");
                     //other.gameObject.SetActive(false);
+                    Destroy(other.gameObject);
+                    GameManager.singleton.playersInGame--;
+                    GameManager.singleton.GameEnd();
                 }
             
                 if (other.GameObject().layer == 3)
                 {
+                    //GameManager.singleton.wallSound.Play();
+                    WallSoundClientRPC();
                     Debug.Log("Hit Wall!");
                     if (ball.speed != ball.maxSpeed)
                     {
@@ -36,6 +41,12 @@ namespace Kevin
                     ball.gameStarted = true;
                 }
             }
+        }
+
+        [ClientRpc]
+        public void WallSoundClientRPC()
+        {
+            GameManager.singleton.wallSound.Play();
         }
     }
 

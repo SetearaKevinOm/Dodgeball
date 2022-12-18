@@ -43,9 +43,9 @@ public class ClientInfo : NetworkBehaviour
             Destroy(lobbyUIRef);
         }
 
-        if (UILobbyManager.instance != null)
+        if (LobbyManager.instance != null)
         {
-            UILobbyManager.instance.RequestClientUIUpdateServerRpc();
+            LobbyManager.instance.RequestClientUIUpdateServerRpc();
         }
     }
 }

@@ -6,13 +6,27 @@ using UnityEngine.UI;
 
 public class MainMenuScript : MonoBehaviour
 {
+    public AudioSource mainMenuTheme;
+    public Camera camera;
+
+    public void OnAwake()
+    {
+        mainMenuTheme.Play();
+    }
     public void StartGameButton()
     {
-        SceneManager.LoadScene("IPScene", LoadSceneMode.Single);
+        camera.gameObject.SetActive(false);
+        mainMenuTheme.Stop();
+        SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
     }
 
     public void ExitGameButton()
     {
         Application.Quit();
+    }
+
+    public void RestartGameButton()
+    {
+        SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
     }
 }

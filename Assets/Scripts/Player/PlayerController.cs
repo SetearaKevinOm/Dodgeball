@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -67,8 +66,8 @@ namespace Kevin
         {
             Vector3 targetDirection = new Vector3(_moveInput.x * playerSpeed, 0, _moveInput.y * playerSpeed);
             if (_rb != null) _rb.AddForce(targetDirection, ForceMode.Acceleration);
-            /*Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime);*/
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime);
         }
 
         [ServerRpc]

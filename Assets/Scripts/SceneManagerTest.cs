@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneManagerTest : NetworkBehaviour
 {
     //public List<Scene> scenes;
-    public UnityEditor.SceneAsset SceneAsset;
+    /*public UnityEditor.SceneAsset SceneAsset;
 
     private void OnValidate()
     {
@@ -31,6 +31,6 @@ public class SceneManagerTest : NetworkBehaviour
                                  $"with a {nameof(SceneEventProgressStatus)}: {status}");
             }
         }
-    }
+    }*/
     
 }
